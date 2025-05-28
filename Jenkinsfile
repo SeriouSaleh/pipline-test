@@ -1,22 +1,36 @@
 pipeline {
     agent any
+
+    environment {
+        DOCKER_IMAGE = "myapp"
+    }
+
     stages {
-        stage("git clone") {
+        stage("Git Clone") {
             steps {
                 checkout([
                     $class: 'GitSCM',
                     branches: [[name: 'master']],
                     extensions: [
-                        [$class: 'RelativeTargetDirectory', relativeTargetDir: 'app']   // put folder name as string
+                        [$class: 'RelativeTargetDirectory', relativeTargetDir: 'app']
                     ],
                     userRemoteConfigs: [[url: 'https://github.com/Sclra/java-hello-world-with-maven.git']]
                 ])
             }
         }
-        stage("A"){
-            steps{
-                echo "=====================build jar file=======================" 
+
+        stage("Build JAR File") {
+            steps {
+                echo "===================== Building JAR file ======================="
                 sh "cd app && mvn clean package"
+            }
+        }
+
+        stage("Build Docker Image") {
+            steps {
+                script {
+                    docker.build("${env.DOCKER_IMAGE}:${env.BUILD_NUMBER}")
+                }
             }
         }
     }
