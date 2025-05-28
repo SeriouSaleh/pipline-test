@@ -1,7 +1,7 @@
 pipeline {
     agent any
     stages {
-        stage("build jar file") {
+        stage("git clone") {
             steps {
                 checkout([
                     $class: 'GitSCM',
@@ -11,6 +11,12 @@ pipeline {
                     ],
                     userRemoteConfigs: [[url: 'https://github.com/Sclra/java-hello-world-with-maven.git']]
                 ])
+            }
+        }
+        stage("A"){
+            steps{
+                echo "=====================build jar file=======================" 
+                sh "cd app && mvn clean package"
             }
         }
     }
