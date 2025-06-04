@@ -14,7 +14,7 @@ pipeline {
                     extensions: [
                         [$class: 'RelativeTargetDirectory', relativeTargetDir: 'app']
                     ],
-                    userRemoteConfigs: [[url: 'https://github.com/Sclra/java-hello-world-with-maven.git']]
+                    userRemoteConfigs: [[url: 'https://github.com/SeriouSaleh/java-hello-world-with-maven.git']]
                 ])
             }
         }
