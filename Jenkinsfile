@@ -33,5 +33,17 @@ pipeline {
                 }
             }
         }
+      
+        stage("Build") {
+            steps {
+                withMaven(
+                    mavenSettingsConfig: 'nexus-maven' // (3)
+                ){
+                sh "mvn clean verify"
+                }  
+            }
+         }
+
+        }
     }
-}
+
