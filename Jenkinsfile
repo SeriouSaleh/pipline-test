@@ -39,7 +39,7 @@ pipeline {
                 withMaven(
                     mavenSettingsConfig: 'nexus-maven' // (3)
                 ){
-                sh "mvn clean verify"
+                sh "cd app & mvn clean verify"
                 }  
             }
          }
